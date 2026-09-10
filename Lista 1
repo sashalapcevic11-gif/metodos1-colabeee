@@ -1,0 +1,142 @@
+#questão 1-a
+import math
+import matplotlib.pyplot as plt
+import numpy as np
+
+def f(i):
+  return 1/i**4
+
+u = (math.pi**4)/90
+soma=0
+SOMA=[]
+EPT=[]
+I=[]
+
+for i in range(1,10):
+  soma=soma+f(i)
+  ept=abs((soma-u)/u)*100
+  SOMA.append(soma)
+  EPT.append(ept)
+  I.append(i)
+  i+=1
+
+plt.plot(I,SOMA,'--or', label='Estimativa')
+plt.legend( )
+plt.grid()
+plt.title('soma')
+plt.xlabel('itineracoes')
+plt.ylabel('soma')
+plt.show()
+
+plt.plot(I,EPT,'--or', label='erros')
+plt.legend( )
+plt.grid()
+plt.title('erros')
+plt.xlabel('itineracoes')
+plt.ylabel('ept')
+plt.show()
+
+#questão 1-b
+import math
+import matplotlib.pyplot as plt
+import numpy as np
+
+def f(i):
+  return 1/i**4
+
+u = (math.pi**4)/90
+soma=0
+SOMA=[]
+EPT=[]
+I=[]
+
+for i in range(10001,1,-1):
+  soma=soma+f(i)
+  ept=abs((soma-u)/u)*100
+  SOMA.append(soma)
+  EPT.append(ept)
+  I.append(i)
+
+
+plt.plot(I,SOMA,'--or', label='Estimativa')
+plt.legend( )
+plt.grid()
+plt.title('soma')
+plt.xlabel('itineracoes')
+plt.ylabel('soma')
+plt.show()
+
+plt.plot(I,EPT,'--or', label='erros')
+plt.legend( )
+plt.grid()
+plt.title('erros')
+plt.xlabel('itineracoes')
+plt.ylabel('ept')
+plt.show()
+
+
+
+
+
+
+#questão 3
+
+import numpy as np
+import matplotlib.pyplot as plt
+import math
+
+u=0.94247779607 #valor verdadeiro
+n=8
+eppara=0.5*10**(2-n)
+epest=100
+ept=100
+i=0
+somant=0
+I=[]
+SOMA=[]
+EPT=[]
+EPEST=[]
+
+def serie(x,i):
+  return(((-1)**i)*(x)**(2*i)/math.factorial(2*i))
+
+while epest>=eppara:
+  x=0.3*math.pi
+  soma=somant+serie(x,i)
+  ept=abs((u-soma)/u)*100
+  if i==0:
+    epest=100
+  else:
+    epest=abs((soma-somant)/soma)*100
+  I.append(i)
+  SOMA.append(soma)
+  EPT.append(ept)
+  EPEST.append(epest)
+
+  somant=soma
+
+  i+=1
+
+print(i)
+
+plt.plot(I,SOMA,'--or',label='soma')
+plt.legend()
+plt.grid()
+plt.xlabel('itineracoes')
+plt.ylabel('soma')
+plt.show()
+
+plt.plot(I,EPT,'--or',label='soma')
+plt.legend()
+plt.grid()
+plt.xlabel('itineracoes')
+plt.ylabel('soma')
+plt.show()
+
+plt.plot(I,EPEST,'--or',label='soma')
+plt.legend()
+plt.grid()
+plt.xlabel('itineracoes')
+plt.ylabel('soma')
+plt.show()
+
