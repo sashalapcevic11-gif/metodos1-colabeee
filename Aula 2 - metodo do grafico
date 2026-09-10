@@ -1,0 +1,23 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import math
+
+def f(x):
+  return np.cos(3*x)+np.sin(10*x)
+
+x = np.linspace(3,6,20)
+y=f(x)
+
+for i in range(0,19):
+  if f(x[i])*f(x[i+1])<0:
+    print("existe uma raiz")
+    xl=x[i]
+    xu=x[i+1]
+    print("xl",xl)
+    print("xu",xu)
+
+plt.ylabel("f(x)")
+plt.xlabel("x")
+plt.grid()
+plt.plot(x,y)
+plt.show()
