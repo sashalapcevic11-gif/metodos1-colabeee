@@ -1,0 +1,40 @@
+import math
+import numpy as np
+import matplotlib.pyplot as plt
+
+#valor verdadeiro
+u= 2.71828182846
+
+def mac(x,n):
+  return (x**n)/math.factorial(n)
+
+x=1
+n=6
+soma=0
+EPT=[]
+SOMA=[]
+I=[]
+
+for i in range(0,n):
+  soma= soma + mac(x,i)
+  ept=abs((u-soma)/u)*100
+
+  I.append(i)
+  EPT.append(ept)
+  SOMA.append(soma)
+
+  #graficos
+
+plt.plot (I,SOMA, '--or', label= 'soma da serie')
+plt.legend()
+
+plt.xlabel('termos')
+plt.ylabel('soma')
+plt.show()
+
+plt.plot(I,EPT,'--or',label='erros')
+plt.legend()
+plt.grid()
+plt.xlabel('termos')
+plt.ylabel('erro')
+plt.show()
