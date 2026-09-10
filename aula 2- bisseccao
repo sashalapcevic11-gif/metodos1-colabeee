@@ -1,0 +1,38 @@
+
+import math
+import numpy as np
+import matplotlib.pyplot as plt
+
+u= 142.7376
+n=6
+eppara=0.5*10**(2-n)
+epest=100
+
+def f(m):
+  g=9.81
+  c=0.25
+  t=4
+  v=36
+  return np.sqrt(g*m/c)*np.tanh(np.sqrt(g*c/m)*t)-v
+
+m=np.linspace(140,150,200)
+
+for i in range(0,199):
+  if f(m[i])*f(m[i+1])<0:
+    mu = m[i+1]
+    ml = m[i]
+
+    print(mu)
+    print(ml)
+
+    if epest>eppara:
+      mr = (mu+ml)/2
+
+      if f(mr)*f(mu)<0:
+        ml=mr
+      else:
+        mu=mr
+
+      epest=abs((mr-mu)/mu)*100
+
+    print(mr)
