@@ -1,0 +1,242 @@
+----------
+QUESTÃO 2
+
+import matplotlib.pyplot as plt
+import math
+import numpy as np
+
+#grafico
+
+def f(x):
+  return -1.5*x**6 -2*x**4 +12*x
+
+x=np.linspace(-10,10,50)
+
+plt.plot(x,f(x),'--or')
+plt.title('Grafico 1')
+plt.grid()
+plt.legend()
+plt.xlabel('valores de x')
+plt.ylabel('valores de f(x)')
+plt.show()
+
+
+#interpolação
+
+def calcularx4(x1,x2,x3):
+  num = ((x2-x1)**2 * (f(x2)-f(x3))) - ((x2-x3)**2 * (f(x2)-f(x1)))
+  den = ((x2-x1)*(f(x2)-f(x3))) - ((x2-x3) * (f(x2)-f(x1)))
+  x4=x2- ((1/2)*num/den)
+  return x4
+
+x1old=0
+x2old=1
+x3old=2
+x4old= calcularx4(x1old,x2old,x3old)
+
+eppest=100
+n=6
+eppara=0.5*10**(2-n)
+
+while eppest>eppara:
+  x1=x1old
+  x2=x2old
+  x3=x3old
+
+  if f(x4old)<f(x2old):
+    x1=x2old
+    x2=x4old
+  else:
+    x3=x4old
+  
+  x4new=calcularx4(x1,x2,x3)
+
+  eppest=abs((x4new-x4old)/x4new)*100
+
+  x1old=x1
+  x2old=x2
+  x3old=x3
+  x4old=x4new
+
+print("o valor de x é:",x4new)
+print("o valor do erro é:",eppest)
+
+def fun(x):
+  return -(-1.5*x**6 -2*x**4 +12*x)
+#razao aurea(multipliquei a função por menos 1)
+
+erro=100
+n=6
+eppara=0.5*10**(2-n)
+r=(math.sqrt(5)-1)/2
+xl=0
+xu=2
+
+while erro>eppara:
+  x1=xl+r*(xu-xl)
+  x2=xu-r*(xu-xl)
+
+  if fun(x1)<fun(x2):
+    xl=x2
+  else:
+    xu=x1
+
+  xotimo=(xu+xl)/2
+
+  erro=abs((xu-xl)/xotimo)*100
+
+print(xotimo)
+print(-fun(xotimo))
+print(erro)
+
+-----------------
+QUESTÃO 3
+
+import math
+import numpy as np
+import matplotlib.pyplot as plt
+
+def f(x):
+  return 4*x - 1.8*x**2 +1.2*x**3 -0.3*x**4
+#grafico
+
+x=np.linspace(-10,10,30)
+
+plt.plot(x,f(x),'--or')
+plt.grid()
+plt.xlabel('valores de x')
+plt.ylabel('valores de y')
+plt.show()
+
+
+
+#interpolação
+
+def calcularx4(x1,x2,x3):
+  num = ((x2-x1)**2 * (f(x2)-f(x3))) - ((x2-x3)**2 * (f(x2)-f(x1)))
+  den = ((x2-x1)*(f(x2)-f(x3))) - ((x2-x3) * (f(x2)-f(x1)))
+  x4=x2- ((1/2)*num/den)
+  return x4
+x1old=1.75
+x2old=2
+x3old=2.5
+x4old=calcularx4(x1old,x2old,x3old)
+
+eppest=100
+n=6
+eppara=0.5*10**(2-n)
+
+while eppest>eppara:
+
+  x1=x1old
+  x2=x2old
+  x3=x3old
+
+  if f(x4old)<f(x2old):
+    x1= x2old
+    x2= x4old
+  else:
+    x3= x4old
+
+  x4new=calcularx4(x1,x2,x3)
+
+  eppest=abs((x4new-x4old)/x4new)*100
+
+  x1old=x1
+  x2old=x2
+  x3old=x3
+  x4old=x4new
+
+print("o valor de x é:",x4new)
+print("o valor do erro é:",eppest)
+
+import math
+import numpy as np
+import matplotlib.pyplot as plt
+
+def fun(x):
+  return -(4*x - 1.8*x**2 +1.2*x**3 -0.3*x**4)  #multipliquei a funcao por menos um pra achar um maximo
+
+# razao aurea
+
+erro=100
+n=6
+eppara=0.5*10**(2-n)
+xl=-2
+xu=4
+
+r=(math.sqrt(5)-1)/2
+while erro>eppara:
+  x1=xl+r*(xu-xl)
+  x2=xu-r*(xu-xl)
+
+  if fun(x1)<fun(x2):
+    xl=x2
+
+  else:
+    xu=x1
+
+  xotimo=(xu+xl)/2
+  erro=abs((xu-xl)/xotimo)*100
+
+print(xotimo)
+print(-fun(xotimo))
+print(erro)
+-------------------
+
+QUESTÃO 4
+
+from scipy.optimize import fminbound
+
+def f(x):
+  return 2*x + (3/x)
+
+xmin= fminbound(f,1,10)
+
+print("x mínimo =", xmin)
+print("f(x) mínimo =", f(xmin))
+
+------------------
+QUESTÃO 5
+
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.optimize import minimize
+
+
+def t(x, y):
+    return 2*x**2 + 3*y**2 - 4*x*y - y - 3*x
+
+x = np.linspace(-5, 5, 100)
+y = np.linspace(-5, 5, 100)
+
+X,Y = np.meshgrid(x,y)
+Z= t(X,Y)
+
+plt.figure()
+plt.contour(X, Y, Z, levels=30)
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Curvas de nível')
+plt.colorbar(label='T(x,y)')
+plt.show()
+
+
+plt.figure()
+ax = plt.axes(projection='3d')
+ax.plot_surface(X,Y,Z)
+plt.show()
+
+# função para o minimize
+def funcao(v):
+    x = v[0]
+    y = v[1]
+    return t(x, y)
+
+# ponto inicial
+x0 = [0, 0]
+
+resultado = minimize(funcao, x0)
+
+print("ponto de minimo =", resultado.x)
+print("T mínimo =", resultado.fun)
