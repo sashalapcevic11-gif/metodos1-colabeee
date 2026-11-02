@@ -4,7 +4,7 @@
   "metadata": {
     "colab": {
       "provenance": [],
-      "authorship_tag": "ABX9TyNg4GHjfo48QTUkEargdQRw",
+      "authorship_tag": "ABX9TyNYQZzV9D+iYfUerpFl7f/B",
       "include_colab_link": true
     },
     "kernelspec": {
@@ -59,7 +59,7 @@
         }
       ],
       "source": [
-        "#questao 1-a\n",
+        "#questao 1-\n",
         "\n",
         "import numpy as np\n",
         "\n",
