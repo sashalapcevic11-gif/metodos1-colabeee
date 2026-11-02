@@ -1,0 +1,382 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNg4GHjfo48QTUkEargdQRw",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/sashalapcevic11-gif/metodos1-colabeee/blob/main/tarefa_4_c%C3%B3dicos.py\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "questão 1\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "c9hnoYDxWkSV"
+      }
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 4,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "QmIv9q57WWJq",
+        "outputId": "4b3bc602-4b7e-43e4-8966-f7480a2526fe"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "matriz aumentada: [[ 10.           2.          -1.          27.        ]\n",
+            " [  0.          -4.4          1.7        -53.4       ]\n",
+            " [  0.           0.           6.40909091 -33.90909091]]\n",
+            "resultado: [ 0.15248227 10.09219858 -5.29078014]\n"
+          ]
+        }
+      ],
+      "source": [
+        "#questao 1-a\n",
+        "\n",
+        "import numpy as np\n",
+        "\n",
+        "A=np.array([[10.,2.,-1.],[-3.,-5.,2.],[1.,1.,6.]])\n",
+        "B=np.array([[27.],[-61.5],[-21.5]])\n",
+        "\n",
+        "Aum=np.hstack((A,B))\n",
+        "n=len(B)\n",
+        "\n",
+        "for i in range(n-1):\n",
+        "  for j in range(i+1,n):\n",
+        "    fator= Aum[j,i]/Aum[i,i]\n",
+        "    Aum[j,i:n+1] = Aum[j,i:n+1] - fator*Aum[i,i:n+1]\n",
+        "\n",
+        "print ('matriz aumentada:',Aum)\n",
+        "\n",
+        "x = np.zeros(n)\n",
+        "x[n-1] = Aum[n-1,n] / Aum[n-1,n-1]\n",
+        "for i in range(n-2,-1,-1):\n",
+        "  soma = 0\n",
+        "  for j in range(i+1,n):\n",
+        "    soma += Aum[i,j]*x[j]\n",
+        "\n",
+        "  x[i] = (Aum[i,n]-soma)/Aum[i,i]\n",
+        "\n",
+        "print ('resultado:',x)\n",
+        "\n"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [],
+      "metadata": {
+        "id": "IFNSN4UOWdvQ"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "questao 2"
+      ],
+      "metadata": {
+        "id": "-N_5YYzDXnBH"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#questao 2-a\n",
+        "\n",
+        "import numpy as np\n",
+        "\n",
+        "A=np.array([[2.,-6.,-1.],[-1.,-1.,7.],[-8.,1.,-2.]])\n",
+        "B=np.array([[-38.],[-34.],[-20.]])\n",
+        "\n",
+        "Aum=np.hstack((A,B))\n",
+        "n=len(B)\n",
+        "\n",
+        "for i in range(n-1):\n",
+        "\n",
+        "  p = i + np.argmax(abs(Aum[i:n,i]))\n",
+        "  Aum[[i,p],:] = Aum[[p,i],:]\n",
+        "  for j in range(i+1,n):\n",
+        "    fator= Aum[j,i]/Aum[i,i]\n",
+        "    Aum[j,i:n+1] = Aum[j,i:n+1] - fator*Aum[i,i:n+1]\n",
+        "\n",
+        "print ('matriz aumentada:',Aum)\n",
+        "\n",
+        "x = np.zeros(n)\n",
+        "x[n-1] = Aum[n-1,n] / Aum[n-1,n-1]\n",
+        "for i in range(n-2,-1,-1):\n",
+        "  soma = 0\n",
+        "  for j in range(i+1,n):\n",
+        "    soma += Aum[i,j]*x[j]\n",
+        "\n",
+        "  x[i] = (Aum[i,n]-soma)/Aum[i,i]\n",
+        "\n",
+        "print ('resultado:',x)\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "hqd1-DpfXoiN",
+        "outputId": "c46d9c6e-ed40-4a70-86fc-d511fc080555"
+      },
+      "execution_count": 5,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "matriz aumentada: [[ -8.           1.          -2.         -20.        ]\n",
+            " [  0.          -5.75        -1.5        -43.        ]\n",
+            " [  0.           0.           7.54347826 -23.08695652]]\n",
+            "resultado: [ 4.29971182  8.27665706 -3.06051873]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "0UU-ehQ_oupW"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "questao 4"
+      ],
+      "metadata": {
+        "id": "u7LaAfT5os0Y"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# questao 4\n",
+        "\n",
+        "import numpy as np\n",
+        "import math\n",
+        "\n",
+        "A= np.array([[0.8,-0.4,0.],[-0.4,0.8,-0.4],[0.,-0.4,0.8]])\n",
+        "b=np.array([41.,25.,105.])#1 coluna 3 linhas\n",
+        "n=len(b)\n",
+        "\n",
+        "#criterio de eppara\n",
+        "na=6\n",
+        "eppara=0.5*10**(2-na)\n",
+        "\n",
+        "#chute inicial\n",
+        "x=np.zeros(n)\n",
+        "\n",
+        "# alocação de memoria\n",
+        "epest=100\n",
+        "\n",
+        "while(np.max(epest)>eppara):\n",
+        "    xold = np.copy(x)\n",
+        "\n",
+        "    for i in range(n):\n",
+        "\n",
+        "        soma1=0\n",
+        "        soma2=0\n",
+        "        for j in range (n):\n",
+        "            if j<i:\n",
+        "                soma1+= A[i,j]*x[j]\n",
+        "            elif j>i:\n",
+        "                soma2 += A[i,j]*xold[j]\n",
+        "\n",
+        "        x[i]=1/A[i,i]*(b[i]-soma1-soma2)\n",
+        "\n",
+        "    epest= abs((x-xold)/x)*100\n",
+        "\n",
+        "print(x)\n",
+        "\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "rmIR4iElowlg",
+        "outputId": "99d20c7e-fe15-451d-d7d6-9714463cd1b3"
+      },
+      "execution_count": 6,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[173.74995515 244.99995515 253.74997757]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [],
+      "metadata": {
+        "id": "QgiqLSpuqUlm"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# questao 6\n",
+        "\n",
+        "import numpy as np\n",
+        "import math\n",
+        "\n",
+        "A= np.array([[10.,2.,-1.],[-3.,-5.,2.],[1.,1.,5.]])\n",
+        "b=np.array([27.,-61.5,-21.5])#1 coluna 3 linhas\n",
+        "n=len(b)\n",
+        "\n",
+        "#criterio de eppara\n",
+        "na=6\n",
+        "eppara=0.5*10**(2-na)\n",
+        "\n",
+        "#chute inicial\n",
+        "x=np.zeros(n)\n",
+        "\n",
+        "# alocação de memoria\n",
+        "epest=100\n",
+        "\n",
+        "while(np.max(epest)>eppara):\n",
+        "    xold = np.copy(x)\n",
+        "\n",
+        "    for i in range(n):\n",
+        "\n",
+        "        soma1=0\n",
+        "        soma2=0\n",
+        "        for j in range (n):\n",
+        "            if j<i:\n",
+        "                soma1+= A[i,j]*x[j]\n",
+        "            elif j>i:\n",
+        "                soma2 += A[i,j]*xold[j]\n",
+        "\n",
+        "        x[i]=1/A[i,i]*(b[i]-soma1-soma2)\n",
+        "\n",
+        "    epest= abs((x-xold)/x)*100\n",
+        "\n",
+        "print(x)\n",
+        "\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "c75q45o0p-BK",
+        "outputId": "503f22b4-213b-4cf6-9f2d-8291f26266f1"
+      },
+      "execution_count": 7,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[ 0.1302521   9.71428571 -6.26890756]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#questao 7\n",
+        "\n",
+        "import numpy as np\n",
+        "import math\n",
+        "\n",
+        "A= np.array([[10.,2.,-1.],[-3.,-5.,2.],[1.,1.,5.]])\n",
+        "b=np.array([27.,-61.5,-21.5])#1 coluna 3 linhas\n",
+        "n=len(b)\n",
+        "\n",
+        "#criterio de eppara\n",
+        "na=6\n",
+        "eppara=0.5*10**(2-na)\n",
+        "\n",
+        "#chute inicial\n",
+        "x=np.zeros(n)\n",
+        "\n",
+        "# alocação de memoria\n",
+        "epest=100\n",
+        "iteracao=0\n",
+        "while(np.max(epest)>eppara):\n",
+        "    xold = np.copy(x)\n",
+        "\n",
+        "    for i in range(n):\n",
+        "        soma=0\n",
+        "        for j in range (n):\n",
+        "            if (i!=j):\n",
+        "                soma += A[i,j]*xold[j]\n",
+        "\n",
+        "\n",
+        "        x[i]=(1/A[i,i])*(b[i]-soma)\n",
+        "\n",
+        "\n",
+        "\n",
+        "    epest= abs((x-xold)/x)*100\n",
+        "    iteracao=iteracao +1\n",
+        "\n",
+        "print (iteracao)\n",
+        "print(x)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "696ZtOZ3rRYj",
+        "outputId": "676972b9-c7fc-43bb-cdcd-4218aa1d15b6"
+      },
+      "execution_count": 8,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "17\n",
+            "[ 0.1302521   9.71428569 -6.26890757]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#questao 8\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "J6828WCjtYVO"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
